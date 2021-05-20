@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dmy.dao.UserMapper">
+    <!--查询用户-->
+    <select id="getUserList" resultType="com.dmy.pojo.User">
+        select * from mybatis.user;
+    </select>
+
+    <!--根据ID 查询用户-->
+    <select id="getUserByID" parameterType="int" resultType="com.dmy.pojo.User">
+        select * from mybatis.user where id= #{id};
+    </select>
+
+    <!--增加用户-->
+    <insert id="addUser" parameterType="com.dmy.pojo.User">
+        insert into mybatis.user (id, name, pwd) VALUES (#{id},#{name},#{pwd});
+    </insert>
+
+    <!--修改用户信息-->
+    <update id="updateUser" parameterType="com.dmy.pojo.User">
+        update mybatis.user set name = #{name},pwd=#{pwd} where id=#{id};
+    </update>
+
+    <!--删除用户-->
+    <delete id="deleteUser" parameterType="int">
+        delete from mybatis.user where id = #{id};
+    </delete>
+
+    <!--Map增加用户-->
+    <insert id="addUser2" parameterType="map">
+        insert into mybatis.user (id, name, pwd) VALUES (#{userid},#{username},#{password});
+    </insert>
+
+    <!--模糊查询, % %通配符防止SQL注入 "%"#{value}"%"-->
+    <select id="getUserLike" resultType="com.dmy.pojo.User">
+        select * from mybatis.user where name like #{value};
+    </select>
+</mapper>
